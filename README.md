@@ -3,7 +3,9 @@ Rectangle
 
 These are some helper classes for handling rectangles comfortably.
 
-RectangleF provides only two methods two specify the rectangle: 
+### RectangleF
+
+RectangleF provides only two methods to specify a rectangle: 
 
 By constructor: 
 
@@ -20,6 +22,8 @@ which takes left, top, right and bottom coordinates.
 But often you want to specify the horizontal dimension differently from the vertical one, or specify the center and width / height, or the width and right coordinate, for example.
 To avoid the cumbersome task of calculating the required parameters from the given ones each time, I created the Rect helper class.
 
+### Rect
+
 With the Rect class you can specify a rectangle in a very flexible way:
 
 For each dimension, two out of four possible specifications are made. For the horizontal dimension, these are left, center, right and width. For the vertical dimension it's top, center, bottom and height.
@@ -27,6 +31,8 @@ For each dimension, two out of four possible specifications are made. For the ho
 In the following example, we specify bottom coordinate, height, horizontal center coordinate and the width:
 
 	Rect.CreateWith().Bottom(40).Height(10).CenterX(20).Width(30).ToRectangleF()
+
+### Too much, too little?
 
 If you there is just one or none specification per dimension, the range for a dimension is not defined. If you specify more than two things, the range is inconsistent. In both cases, you will get an exception when you try to convert to RectngleF, but whether the right count of specifications has been provided can easily be seen from the source code.
 
@@ -37,6 +43,8 @@ Following example will fail to execute, because the horizontal dimension is over
 Specifying the same thing twice is no problem, however:
 
 	Rect.CreateWith().Left(10).Right(20).Top(30).Bottom(40).Left(20).ToRectangleF()
+
+### More flexible ways
 
 As an alternative to providing direct coordinates or lengths, you can exctract them from other rectangles, points or sizes.
 
@@ -58,10 +66,14 @@ As an alternative to providing direct coordinates or lengths, you can exctract t
 		.AtBottomOf(rect1)
 		.ToRectangleF();
 
+### Two classes
+
 In fact, there are two classes, not just one, to get all this done. One is Rect, the other is RectModifier.
 
 Rect itself is immutable and holds the specifications, RectModifier provides means to change the spedifications.
 You create a RectModifiert by calling With on a existing Rect or Rect.CreateWith() to create both the Rect and modifier objects.
+
+### More features
 
 If you want to query again what you just set, you can do that as follows:
 
