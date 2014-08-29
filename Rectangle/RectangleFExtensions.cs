@@ -5,6 +5,8 @@ namespace Rectangle
 {
 	public static class RectangleFExtensions
 	{
+		// Center
+
 		public static float CenterX(this RectangleF rect)
 		{
 			return rect.Left + rect.Width / 2;
@@ -15,6 +17,7 @@ namespace Rectangle
 			return rect.Top + rect.Height / 2;
 		}
 
+		// Corners
 
 		public static PointF TopLeft(this RectangleF rect)
 		{
@@ -61,6 +64,7 @@ namespace Rectangle
 			return new PointF(rect.Right, rect.Bottom);
 		}
 
+		// Modifications, horizontal
 
 		public static RectangleF SetLeftKeepWidth(this RectangleF rect, float left)
 		{
@@ -119,6 +123,7 @@ namespace Rectangle
 			return new RectangleF(left, rect.Top, width, rect.Height);
 		}
 
+		// Modifications, vertical
 
 		public static RectangleF SetTopKeepHeight(this RectangleF rect, float top)
 		{

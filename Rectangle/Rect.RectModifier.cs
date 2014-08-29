@@ -194,9 +194,9 @@ namespace Rectangle
 				return WidthOf(rect).HeightOf(rect);
 			}
 
-			public RectModifier RelativeSizeOf(RectangleF rect, float relativeSize)
+			public RectModifier RelativeSizeOf(RectangleF rect, float fraction)
 			{
-				return RelativeWidthOf(rect, relativeSize).RelativeHeightOf(rect, relativeSize);
+				return RelativeWidthOf(rect, fraction).RelativeHeightOf(rect, fraction);
 			}
 
 			public RectModifier LeftTopRightBottom(float left, float top, float right, float bottom)
@@ -224,6 +224,11 @@ namespace Rectangle
 			public RectModifier Size(SizeF size)
 			{
 				return Width(size.Width).Height(size.Height);
+			}
+
+			public RectModifier RelativeSize(SizeF size, float fraction)
+			{
+				return Width(size.Width * fraction).Height(size.Height * fraction);
 			}
 
 			public RectModifier Size(float width, float height)
