@@ -181,5 +181,18 @@ namespace Rectangle
 			float top = bottom - height;
 			return new RectangleF(rect.Left, top, rect.Width, height);
 		}
+
+		// TODO
+
+//		public static RectangleF Displace(this RectangleF rect, float dx, float dy)
+//		{
+//		}
+//
+//		public static RectangleF MoveTopLeftTo()
+//		{
+//		}
+//
+//		SetWidthHeightKeepTopLeft
+
 	}
 }

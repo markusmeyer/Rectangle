@@ -12,7 +12,7 @@ namespace Rectangle
 		{
 			Assert.AreEqual(
 				new RectangleF(123, 678, 876, 234),
-				Rect.CreateWith()
+				Rect.CreateWith
 				.Left(123).Width(876)
 				.Top(678).Height(234).ToRectangleF());
 		}
@@ -22,7 +22,7 @@ namespace Rectangle
 		{
 			Assert.AreEqual(
 				RectangleF.FromLTRB(123, 234, 987, 765), 
-				Rect.CreateWith()
+				Rect.CreateWith
 				.Left(123).Right(987)
 				.Top(234).Bottom(765)
 				.ToRectangleF());
@@ -33,7 +33,7 @@ namespace Rectangle
 		{
 			Assert.AreEqual(
 				new RectangleF(30, 20, 40, 80),
-				Rect.CreateWith()
+				Rect.CreateWith
 				.CenterX(50).Width(40)
 				.CenterY(60).Height(80)
 				.ToRectangleF());
@@ -45,7 +45,7 @@ namespace Rectangle
 			RectangleF a = new RectangleF(1, 7, 17, 31);
 			Assert.AreEqual(
 				a,
-				Rect.CreateWith()
+				Rect.CreateWith
 				.LeftOf(a).RightOf(a)
 				.TopOf(a).BottomOf(a)
 				.ToRectangleF());
@@ -57,7 +57,7 @@ namespace Rectangle
 			RectangleF a = new RectangleF(1, 7, 17, 31);
 			Assert.AreEqual(
 				a,
-				Rect.CreateWith()
+				Rect.CreateWith
 				.LeftOf(a).WidthOf(a)
 				.TopOf(a).HeightOf(a)
 				.ToRectangleF());
@@ -69,7 +69,7 @@ namespace Rectangle
 			RectangleF a = new RectangleF(1, 7, 17, 31);
 			Assert.AreEqual(
 				a,
-				Rect.CreateWith()
+				Rect.CreateWith
 				.RightOf(a).WidthOf(a)
 				.BottomOf(a).HeightOf(a)
 				.ToRectangleF());
@@ -81,7 +81,7 @@ namespace Rectangle
 			RectangleF a = new RectangleF(1, 7, 17, 31);
 			Assert.AreEqual(
 				a,
-				Rect.CreateWith()
+				Rect.CreateWith
 				.CenterXOf(a).WidthOf(a)
 				.CenterYOf(a).HeightOf(a)
 				.ToRectangleF());
@@ -90,69 +90,68 @@ namespace Rectangle
 		[Test]
 		public void Test8()
 		{
-			Rect rect2 = Rect.CreateWith().Left(1).Right(2).Top(3).Bottom(4).Rect;
-			Rect rect3 = rect2.With.Left(5).Rect;
+			Rect rect2 = Rect.CreateWith.Left(1).Right(2).Top(3).Bottom(4);
+			Rect rect3 = rect2.Left(5);
 			Assert.AreEqual(RectangleF.FromLTRB(1, 3, 2, 4), rect2.ToRectangleF());
 		}
 
 		[Test]
 		public void NewlyCreatedObject_ReturnsNullForEverything()
 		{
-			Assert.AreEqual(null, Rect.CreateWith().Rect.Left);
-			Assert.AreEqual(null, Rect.CreateWith().Rect.CenterX);
-			Assert.AreEqual(null, Rect.CreateWith().Rect.Right);
-			Assert.AreEqual(null, Rect.CreateWith().Rect.Width);
-			Assert.AreEqual(null, Rect.CreateWith().Rect.Top);
-			Assert.AreEqual(null, Rect.CreateWith().Rect.CenterY);
-			Assert.AreEqual(null, Rect.CreateWith().Rect.Bottom);
-			Assert.AreEqual(null, Rect.CreateWith().Rect.Height);
+			Assert.AreEqual(null, Rect.CreateWith.GetLeft());
+			Assert.AreEqual(null, Rect.CreateWith.GetCenterX());
+			Assert.AreEqual(null, Rect.CreateWith.GetRight());
+			Assert.AreEqual(null, Rect.CreateWith.GetWidth());
+			Assert.AreEqual(null, Rect.CreateWith.GetTop());
+			Assert.AreEqual(null, Rect.CreateWith.GetCenterY());
+			Assert.AreEqual(null, Rect.CreateWith.GetBottom());
+			Assert.AreEqual(null, Rect.CreateWith.GetHeight());
 		}
 
 		[Test]
 		public void SettingAValue_ReturnsSameValueAsPropertyOfRect()
 		{
-			Assert.AreEqual(42, Rect.CreateWith().Left(42).Rect.Left);
-			Assert.AreEqual(42, Rect.CreateWith().CenterX(42).Rect.CenterX);
-			Assert.AreEqual(42, Rect.CreateWith().Right(42).Rect.Right);
-			Assert.AreEqual(42, Rect.CreateWith().Width(42).Rect.Width);
-			Assert.AreEqual(42, Rect.CreateWith().Top(42).Rect.Top);
-			Assert.AreEqual(42, Rect.CreateWith().CenterY(42).Rect.CenterY);
-			Assert.AreEqual(42, Rect.CreateWith().Bottom(42).Rect.Bottom);
-			Assert.AreEqual(42, Rect.CreateWith().Height(42).Rect.Height);
+			Assert.AreEqual(42, Rect.CreateWith.Left(42).GetLeft());
+			Assert.AreEqual(42, Rect.CreateWith.CenterX(42).GetCenterX());
+			Assert.AreEqual(42, Rect.CreateWith.Right(42).GetRight());
+			Assert.AreEqual(42, Rect.CreateWith.Width(42).GetWidth());
+			Assert.AreEqual(42, Rect.CreateWith.Top(42).GetTop());
+			Assert.AreEqual(42, Rect.CreateWith.CenterY(42).GetCenterY());
+			Assert.AreEqual(42, Rect.CreateWith.Bottom(42).GetBottom());
+			Assert.AreEqual(42, Rect.CreateWith.Height(42).GetHeight());
 		}
 
 		[Test]
 		public void LeftTopRightBottom_SetsCorrectValues()
 		{
-			var a = Rect.CreateWith().LeftTopRightBottom(1, 2, 3, 4).Rect;
-			Assert.AreEqual(1, a.Left);
-			Assert.AreEqual(2, a.Top);
-			Assert.AreEqual(3, a.Right);
-			Assert.AreEqual(4, a.Bottom);
+			var a = Rect.CreateWith.LeftTopRightBottom(1, 2, 3, 4);
+			Assert.AreEqual(1, a.GetLeft());
+			Assert.AreEqual(2, a.GetTop());
+			Assert.AreEqual(3, a.GetRight());
+			Assert.AreEqual(4, a.GetBottom());
 			Assert.AreEqual(RectangleF.FromLTRB(1, 2, 3, 4), a.ToRectangleF());
 		}
 
 		[Test]
 		public void LeftTopRightBottomOf_SetsCorrectValues()
 		{
-			var a = Rect.CreateWith().LeftTopRightBottomOf(RectangleF.FromLTRB(1, 2, 3, 4)).Rect;
-			Assert.AreEqual(1, a.Left);
-			Assert.AreEqual(2, a.Top);
-			Assert.AreEqual(3, a.Right);
-			Assert.AreEqual(4, a.Bottom);
+			var a = Rect.CreateWith.LeftTopRightBottomOf(RectangleF.FromLTRB(1, 2, 3, 4));
+			Assert.AreEqual(1, a.GetLeft());
+			Assert.AreEqual(2, a.GetTop());
+			Assert.AreEqual(3, a.GetRight());
+			Assert.AreEqual(4, a.GetBottom());
 			Assert.AreEqual(RectangleF.FromLTRB(1, 2, 3, 4), a.ToRectangleF());
 		}
 
 		[Test]
 		public void LeftTopWidthHeight_SetsCorrectValues()
 		{
-			var a = Rect.CreateWith().LeftTopRightBottom(1, 2, 3, 4).Rect;
-			Assert.AreEqual(1, a.Left);
-			Assert.AreEqual(2, a.Top);
-			Assert.AreEqual(3, a.Right);
-			Assert.AreEqual(4, a.Bottom);
+			var a = Rect.CreateWith.LeftTopRightBottom(1, 2, 3, 4);
+			Assert.AreEqual(1, a.GetLeft());
+			Assert.AreEqual(2, a.GetTop());
+			Assert.AreEqual(3, a.GetRight());
+			Assert.AreEqual(4, a.GetBottom());
 			Assert.AreEqual(RectangleF.FromLTRB(1, 2, 3, 4), a.ToRectangleF());
 		}
-
 	}
 }

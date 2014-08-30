@@ -8,54 +8,6 @@ namespace Rectangle
 		Range xRange;
 		Range yRange;
 
-		public float? Left
-		{
-			get { return xRange.Low; }
-			private set { xRange.Low = value; }
-		}
-
-		public float? CenterX
-		{
-			get { return xRange.Middle; }
-			private set { xRange.Middle = value; }
-		}
-
-		public float? Right
-		{
-			get { return xRange.High; }
-			private set { xRange.High = value; }
-		}
-
-		public float? Width
-		{
-			get { return xRange.Length; }
-			private set { xRange.Length = value; }
-		}
-
-		public float? Top
-		{
-			get { return yRange.Low; }
-			private set { yRange.Low = value; }
-		}
-
-		public float? CenterY
-		{
-			get { return yRange.Middle; }
-			private set { yRange.Middle = value; }
-		}
-
-		public float? Bottom
-		{
-			get { return yRange.High; }
-			private set { yRange.High = value; }
-		}
-
-		public float? Height
-		{
-			get { return yRange.Length; }
-			private set { yRange.Length = value; }
-		}
-
 		public Rect()
 		{
 			xRange = new Range(Dimension.Horizontal);
@@ -68,14 +20,93 @@ namespace Rectangle
 			yRange = other.yRange;
 		}
 
-		public static RectModifier CreateWith()
+		// Basic getters
+
+		public float? GetLeft()
 		{
-			return new RectModifier(new Rect());
+			return xRange.Low;
 		}
 
-		public RectModifier With
+		public float? GetCenterX()
 		{
-			get { return new RectModifier(this); }
+			return xRange.Middle;
+		}
+
+		public float? GetRight()
+		{
+			return xRange.High;
+		}
+
+		public float? GetWidth()
+		{
+			return xRange.Length;
+		}
+
+		public float? GetTop()
+		{
+			return yRange.Low;
+		}
+
+		public float? GetCenterY()
+		{
+			return yRange.Middle;
+		}
+
+		public float? GetBottom()
+		{
+			return yRange.High;
+		}
+
+		public float? GetHeight()
+		{
+			return yRange.Length;
+		}
+
+		// Basic setters
+
+		void SetLeft(float value)
+		{
+			xRange.Low = value;
+		}
+
+		void SetCenterX(float value)
+		{
+			xRange.Middle = value;
+		}
+
+		void SetRight(float value)
+		{
+			xRange.High = value;
+		}
+
+		void SetWidth(float value)
+		{
+			xRange.Length = value;
+		}
+
+		void SetTop(float value)
+		{
+			yRange.Low = value;
+		}
+
+		void SetCenterY(float value)
+		{
+			yRange.Middle = value;
+		}
+
+		void SetBottom(float value)
+		{
+			yRange.High = value;
+		}
+
+		void SetHeight(float value)
+		{
+			yRange.Length = value;
+		}
+
+		public static Rect CreateWith 
+		{
+			get { return new Rect(); }
 		}
 
 		public Rect Clone()
