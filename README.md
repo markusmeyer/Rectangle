@@ -9,7 +9,7 @@ RectangleF provides only two methods to specify a rectangle:
 
 By constructor: 
 
-	new RectangleF(10, 20, 30, 30)
+	new RectangleF(10, 20, 30, 40)
 
 which takes top and left coordinates and width and height.
 
