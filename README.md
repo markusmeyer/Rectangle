@@ -26,7 +26,7 @@ To avoid the cumbersome task of calculating the required parameters from the giv
 
 With the Rect class you can specify a rectangle in a very flexible way:
 
-For each dimension, two out of four possible specifications are made. For the horizontal dimension, these are left, center, right and width. For the vertical dimension it's top, center, bottom and height.
+For each dimension, two out of four possible specifications are made. For the horizontal dimension, this can be left, center, right and width. For the vertical dimension it can be top, center, bottom and height.
 
 In the following example, we specify bottom coordinate, height, horizontal center coordinate and the width:
 
@@ -34,7 +34,7 @@ In the following example, we specify bottom coordinate, height, horizontal cente
 
 ### Too much, too little?
 
-If you there is just one or none specification per dimension, the range for a dimension is not defined. If you specify more than two things, the range is inconsistent. In both cases, you will get an exception when you try to convert to RectngleF, but whether the right count of specifications has been provided can easily be seen from the source code.
+If you there is just one or none specification per dimension, the range for a dimension is not defined. If you specify more than two things, they could contradict each other. In both cases, you will get an exception when you try to convert to RectangleF, but whether the right count of specifications has been provided can easily be seen from the source code.
 
 Following example will fail to execute, because the horizontal dimension is overspecified (left and right coordinate and width is given) and the vertical dimension is underspecified (only top coordinate is given):
 
