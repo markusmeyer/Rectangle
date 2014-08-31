@@ -5,8 +5,8 @@ namespace Rectangle
 {
 	public partial class Rect
 	{
-		Range xRange;
-		Range yRange;
+		protected Range xRange;
+		protected Range yRange;
 
 		public Rect()
 		{
@@ -109,12 +109,12 @@ namespace Rectangle
 			get { return new Rect(); }
 		}
 
-		public Rect Clone()
+		public virtual Rect Clone()
 		{
 			return new Rect(this);
 		}
 
-		public RectangleF ToRectangleF()
+		public virtual RectangleF ToRectangleF()
 		{
 			xRange.InferLowAndLength();
 			yRange.InferLowAndLength();

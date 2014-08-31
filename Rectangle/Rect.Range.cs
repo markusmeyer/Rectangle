@@ -4,13 +4,13 @@ namespace Rectangle
 {
 	public partial class Rect
 	{
-		enum Dimension
+		protected enum Dimension
 		{ 
 			Horizontal, 
 			Vertical
 		};
 
-		struct Range
+		protected struct Range
 		{
 			readonly Dimension dimension;
 			public float? Low;
@@ -25,6 +25,15 @@ namespace Rectangle
 				Middle = null;
 				High = null;
 				Length = null;
+			}
+
+			public void SetLowAndLengthIfUnspecified(float low, float length)
+			{
+				if (SpecCount() == 0)
+				{
+					Low = low;
+					Length = length;
+				}
 			}
 
 			public void InferLowAndLength()
@@ -72,12 +81,17 @@ namespace Rectangle
 
 			void EnsureNotUnderOrOverspecified()
 			{
-				int specCount = OneIfHasValue(Low) + OneIfHasValue(Middle) + OneIfHasValue(High) + OneIfHasValue(Length);
+				int specCount = SpecCount();
 				if (specCount < 2)
 					throw new InvalidOperationException(dimension + " dimension underspecified");
 				if (specCount > 2)
 					throw new InvalidOperationException(dimension + " dimension overspecified");
 			}
+
+			int SpecCount()
+			{
+				return OneIfHasValue(Low) + OneIfHasValue(Middle) + OneIfHasValue(High) + OneIfHasValue(Length);
+			} 
 
 			int OneIfHasValue(float? value)
 			{

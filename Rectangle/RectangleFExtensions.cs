@@ -64,135 +64,50 @@ namespace Rectangle
 			return new PointF(rect.Right, rect.Bottom);
 		}
 
-		// Modifications, horizontal
+		// Move
 
-		public static RectangleF SetLeftKeepWidth(this RectangleF rect, float left)
+		public static RectangleF Move(this RectangleF rectangle, float deltaX, float deltaY)
 		{
-			return new RectangleF(left, rect.Top, rect.Width, rect.Height);
+			return new RectangleF(
+				rectangle.Left + deltaX,
+				rectangle.Top + deltaY,
+				rectangle.Width,
+				rectangle.Height);
 		}
 
-		public static RectangleF SetLeftKeepRight(this RectangleF rect, float left)
+		public static RectangleF MoveRight(this RectangleF rectangle, float delta)
 		{
-			float width = rect.Right - left;
-			return new RectangleF(left, rect.Top, width, rect.Height);
+			return new RectangleF(
+				rectangle.Left + delta,
+				rectangle.Top,
+				rectangle.Width,
+				rectangle.Height);
 		}
 
-		public static RectangleF SetLeftKeepCenter(this RectangleF rect, float left)
+		public static RectangleF MoveDown(this RectangleF rectangle, float delta)
 		{
-			float center = rect.CenterX();
-			float width = (center - left) * 2;
-			return new RectangleF(left, rect.Top, width, rect.Height);
+			return new RectangleF(
+				rectangle.Left,
+				rectangle.Top + delta,
+				rectangle.Width,
+				rectangle.Height);
 		}
 
-		public static RectangleF SetCenterXKeepWidth(this RectangleF rect, float centerX)
+		// ModifiedRect
+
+		public static ModifiedRect With(this RectangleF rectangle)
 		{
-			float left = centerX - rect.Width / 2;
-			return new RectangleF(left, rect.Top, rect.Width, rect.Height);
+			return new ModifiedRect(rectangle);
 		}
 
-		public static RectangleF SetCenterXKeepLeft(this RectangleF rect, float centerX)
+		public static ModifiedRect WithSameSize(this RectangleF rectangle)
 		{
-			float width = (centerX - rect.Left) * 2;
-			return new RectangleF(rect.Left, rect.Top, width, rect.Height);
+			return rectangle.With().SameSize();
 		}
 
-		public static RectangleF SetCenterXKeepRight(this RectangleF rect, float centerX)
+		public static ModifiedRect WithSameTopLeft(this RectangleF rectangle)
 		{
-			float width = (rect.Right - centerX) * 2;
-			float left = rect.Right - width;
-			return new RectangleF(left, rect.Top, width, rect.Height);
+			return rectangle.With().SameTop().SameLeft();
 		}
-
-		public static RectangleF SetRightKeepWidth(this RectangleF rect, float right)
-		{
-			float left = right - rect.Width;
-			return new RectangleF(left, rect.Top, rect.Width, rect.Height);
-		}
-
-		public static RectangleF SetRightKeepLeft(this RectangleF rect, float right)
-		{
-			float width = right - rect.Left;
-			return new RectangleF(rect.Left, rect.Top, width, rect.Height);
-		}
-
-		public static RectangleF SetRightKeepCenter(this RectangleF rect, float right)
-		{
-			float center = rect.CenterX();
-			float width = (right - center) * 2;
-			float left = right - width;
-			return new RectangleF(left, rect.Top, width, rect.Height);
-		}
-
-		// Modifications, vertical
-
-		public static RectangleF SetTopKeepHeight(this RectangleF rect, float top)
-		{
-			return new RectangleF(rect.Left, top, rect.Width, rect.Height);
-		}
-
-		public static RectangleF SetTopKeepBottom(this RectangleF rect, float top)
-		{
-			float height = rect.Bottom - top;
-			return new RectangleF(rect.Left, top, rect.Width, height);
-		}
-
-		public static RectangleF SetTopKeepCenter(this RectangleF rect, float top)
-		{
-			float center = rect.CenterY();
-			float height = (center - top) * 2;
-			return new RectangleF(rect.Left, top, rect.Width, height);
-		}
-
-		public static RectangleF SetCenterYKeepHeight(this RectangleF rect, float centerY)
-		{
-			float top = centerY - rect.Height / 2;
-			return new RectangleF(rect.Left, top, rect.Width, rect.Height);
-		}
-
-		public static RectangleF SetCenterYKeepTop(this RectangleF rect, float centerY)
-		{
-			float height = (centerY - rect.Top) * 2;
-			return new RectangleF(rect.Left, rect.Top, rect.Width, height);
-		}
-
-		public static RectangleF SetCenterYKeepBottom(this RectangleF rect, float centerY)
-		{
-			float height = (rect.Bottom - centerY) * 2;
-			float top = rect.Bottom - height;
-			return new RectangleF(rect.Left, top, rect.Width, height);
-		}
-
-		public static RectangleF SetBottomKeepHeight(this RectangleF rect, float bottom)
-		{
-			float top = bottom - rect.Height;
-			return new RectangleF(rect.Left, top, rect.Width, rect.Height);
-		}
-
-		public static RectangleF SetBottomKeepTop(this RectangleF rect, float bottom)
-		{
-			float height = bottom - rect.Top;
-			return new RectangleF(rect.Left, rect.Top, rect.Width, height);
-		}
-
-		public static RectangleF SetBottomKeepCenter(this RectangleF rect, float bottom)
-		{
-			float center = rect.CenterY();
-			float height = (bottom - center) * 2;
-			float top = bottom - height;
-			return new RectangleF(rect.Left, top, rect.Width, height);
-		}
-
-		// TODO
-
-//		public static RectangleF Displace(this RectangleF rect, float dx, float dy)
-//		{
-//		}
-//
-//		public static RectangleF MoveTopLeftTo()
-//		{
-//		}
-//
-//		SetWidthHeightKeepTopLeft
-
 	}
 }
