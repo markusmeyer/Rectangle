@@ -54,11 +54,11 @@ namespace Rectangle
 			rect = rect.With().SameTopLeft().Size(100, 200).ToRectangleF();
 			rect = rect.With().SameSize().Top(10).Left(20).ToRectangleF();
 			rect = rect.With().SameRight().SameBottom().AddToLeft(10).AddToTop(20).ToRectangleF();
-			rect = rect.With().SameCenter().AddToWidth(-20).AddToHeight(-20).ToRectangleF();
+			rect = rect.With().SameCenter().EnlargeHorizontally(-20).EnlargeVertically(-20).ToRectangleF();
 			rect = rect.With().SameCenter().RelativeHeight(.5f).RelativeWidth(.5f).ToRectangleF();
 			rect = rect.With().SameCenter().RelativeSize(.5f).ToRectangleF();
-			rect = rect.With().SameCenter().AddToSize(new SizeF(20, 30)).ToRectangleF();
-			rect = rect.With().SameCenter().AddToSize(20, 30).ToRectangleF();
+			rect = rect.With().SameCenter().Enlarge(new SizeF(20, 30)).ToRectangleF();
+			rect = rect.With().SameCenter().Enlarge(20, 30).ToRectangleF();
 
 			rect = rect.Move(20, 20);
 			rect = rect.MoveRight(20);
