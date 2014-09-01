@@ -185,3 +185,122 @@ Finally, there are two extension methods to return the center coordinates of a r
 
 	rect.CenterX()
 	rect.CenterY()
+	
+### Reference: Rect
+
+#### Get basic properties
+
+	float? GetLeft()
+	float? GetCenterX()
+	float? GetRight()
+	float? GetWidth()
+	
+	float? GetTop()
+	float? GetCenterY()
+	float? GetBottom()
+	float? GetHeight()
+
+#### Set basic properties
+
+	Left(float left)
+	CenterX(float centerX)
+	Right(float right)
+	Width(float width)
+
+	Top(float top)
+	CenterY(float centerY)
+	Bottom(float bottom)
+	Height(float height)
+
+### Use a RectangleF to set properties
+
+	ToLeftOf(RectangleF rect, float margin = 0)
+	ToRightOf(RectangleF rect, float margin = 0)
+	Above(RectangleF rect, float margin = 0)
+	Below(RectangleF rect, float margin = 0)
+
+	AtRightOf(RectangleF rect, float margin = 0)
+	AtLeftOf(RectangleF rect, float margin = 0)
+	AtTopOf(RectangleF rect, float margin = 0)
+	AtBottomOf(RectangleF rect, float margin = 0)
+
+	LeftOf(RectangleF rect)
+	CenterXOf(RectangleF rect)
+	RightOf(RectangleF rect)
+	WidthOf(RectangleF rect)
+	RelativeWidthOf(RectangleF rect, float fraction)
+
+	TopOf(RectangleF rect)
+	CenterYOf(RectangleF rect)
+	BottomOf(RectangleF rect)
+	HeightOf(RectangleF rect)
+	RelativeHeightOf(RectangleF rect, float fraction)
+
+	LeftRightOf(RectangleF rect, float margin = 0)
+	TopBottomOf(RectangleF rect, float margin = 0)
+	TopLeftOf(RectangleF rect)
+	CenterOf(RectangleF rect)
+	SizeOf(RectangleF rect)
+	RelativeSizeOf(RectangleF rect, float fraction)
+
+	LeftTopRightBottomOf(RectangleF rect)
+	LeftTopRightBottom(float left, float top, float right, float bottom)
+	
+	LeftTopWidthHeightOf(RectangleF rect)
+	LeftTopWidthHeight(float left, float top, float width, float height)
+
+#### Use a SizeF to set properties
+
+	Size(SizeF size)
+	RelativeSize(SizeF size, float fraction)
+	Size(float width, float height)
+
+#### Use a PointF to set properties
+
+	TopLeft(PointF point)
+	TopRight(PointF point)
+	TopCenter(PointF point)
+	CenterLeft(PointF point)
+	CenterRight(PointF point)
+	BottomLeft(PointF point)
+	BottomCenter(PointF point)
+	BottomRight(PointF point)
+
+### Reference: RectWithOriginal
+	
+#### Set basic properties
+
+	SameLeft()
+	SameCenterX()
+	SameRight()
+	SameWidth()
+
+	SameTop()
+	SameCenterY()
+	SameBottom()
+	SameHeight()
+
+	SameTopLeft()
+	SameCenter()
+	SameSize()
+
+#### Add
+
+	AddToLeft(float delta)
+	AddToCenterX(float delta)
+	AddToRight(float delta)
+	
+	AddToTop(float delta)
+	AddToCenterY(float delta)
+	AddToBottom(float delta)
+	
+	EnlargeHorizontally(float delta)
+	EnlargeVertically(float delta)
+	Enlarge(float widthDelta, float heightDelta)
+	Enlarge(SizeF sizeDelta)
+
+#### Multiply
+
+	RelativeWidth(float fraction)
+	RelativeHeight(float fraction)
+	RelativeSize(float fraction)
