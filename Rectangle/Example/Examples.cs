@@ -48,24 +48,46 @@ namespace Rectangle
 			RectangleF rect2 = rect.Bottom(50).ToRectangleF();
 		}
 
-		void Example4()
+		void Examples_RectWithOriginal()
 		{
 			var rect = new RectangleF(10, 20, 30, 40);
-			rect = rect.With().SameTopLeft().Size(100, 200).ToRectangleF();
-			rect = rect.With().SameSize().Top(10).Left(20).ToRectangleF();
-			rect = rect.With().SameRight().SameBottom().AddToLeft(10).AddToTop(20).ToRectangleF();
-			rect = rect.With().SameCenter().EnlargeHorizontally(-20).EnlargeVertically(-20).ToRectangleF();
-			rect = rect.With().SameCenter().RelativeHeight(.5f).RelativeWidth(.5f).ToRectangleF();
-			rect = rect.With().SameCenter().RelativeSize(.5f).ToRectangleF();
-			rect = rect.With().SameCenter().Enlarge(new SizeF(20, 30)).ToRectangleF();
-			rect = rect.With().SameCenter().Enlarge(20, 30).ToRectangleF();
 
-			rect = rect.Move(20, 20);
-			rect = rect.MoveRight(20);
-			rect = rect.MoveDown(20);
-			rect = rect.With().SameWidth().Left(30).ToRectangleF();
+			// create new:
+			Rect.CreateWith.TopOf(rect).RightOf(rect).HeightOf(rect).Width(100).ToRectangleF();
+			// better:
+			rect.With().SameTop().SameRight().SameHeight().Width(100).ToRectangleF();
+			// even shorter:
+			rect.With().SameRight().Width(100).ToRectangleF();
 
-			rect = rect.With().Right(10).Width(20).ToRectangleF();
+			// omit whole dimension
+			rect.With().SameWidth().Left(30).ToRectangleF();
+			rect.With().Right(10).Width(20).ToRectangleF();
+
+			// relocate top left:
+			rect.With().SameSize().Top(20).Left(30).ToRectangleF();
+
+			// multiply
+			rect.With().SameCenter().RelativeHeight(.5f).RelativeWidth(.5f).ToRectangleF();
+			rect.With().SameCenter().RelativeSize(.5f).ToRectangleF();
+
+			// add / enlarge
+			rect.With().SameRight().SameBottom().AddToLeft(10).AddToTop(20).ToRectangleF();
+			rect.With().SameCenter().EnlargeHorizontally(20).EnlargeVertically(30).ToRectangleF();
+			rect.With().SameCenter().Enlarge(new SizeF(20, 30)).ToRectangleF();
+			rect.With().SameCenter().Enlarge(20, 30).ToRectangleF();
+
+			// move
+			rect.With().SameSize().AddToLeft(20).AddToTop(30).ToRectangleF();
+			rect.Move(20, 30);
+			rect.MoveRight(20);
+			rect.MoveDown(30);
+
+			// corners
+			Rect.CreateWith.TopLeft(rect.BottomRight()).Size(10, 20).ToRectangleF();
+
+			// center
+			rect.CenterX();
+			rect.CenterY();
 		}
 	}
 }

@@ -97,6 +97,21 @@ namespace Rectangle
 			{
 				return value.HasValue ? 1 : 0;
 			}
+
+			public void Apply(Range other)
+			{
+				if (other.Low != null)
+					Low = other.Low;
+
+				if (other.Middle != null)
+					Middle = other.Middle;
+
+				if (other.High != null)
+					High = other.High;
+
+				if (other.Length != null)
+					Length = other.Length;
+			}
 		}
 	}
 }

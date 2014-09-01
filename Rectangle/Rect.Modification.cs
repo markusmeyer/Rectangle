@@ -12,7 +12,7 @@ namespace Rectangle
 			return newRect;
 		}
 
-		// Horizontal dimension, basic
+		// Horizontal dimension, basic properties
 
 		public Rect Left(float left)
 		{
@@ -34,7 +34,7 @@ namespace Rectangle
 			return Modify((Rect rect) => rect.SetWidth(width));
 		}
 
-		// Vertical dimension, basic
+		// Vertical dimension, basic properties
 
 		public Rect Top(float top)
 		{
@@ -56,7 +56,7 @@ namespace Rectangle
 			return Modify((Rect rect) => rect.SetHeight(height));
 		}
 
-		// Horizontal dimension, extended
+		// Horizontal dimension, from RectangleF
 
 		public Rect ToLeftOf(RectangleF rect, float margin = 0)
 		{
@@ -108,7 +108,7 @@ namespace Rectangle
 			return CenterX(rect.Left + rect.Width / 2);
 		}
 
-		// Vertical dimension, extended
+		// Vertical dimension, from RectangleF
 
 		public Rect Above(RectangleF rect, float margin = 0)
 		{

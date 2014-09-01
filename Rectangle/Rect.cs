@@ -114,6 +114,14 @@ namespace Rectangle
 			return new Rect(this);
 		}
 
+		public Rect Apply(Rect other)
+		{
+			Rect result = Clone();
+			result.xRange.Apply(other.xRange);
+			result.yRange.Apply(other.yRange);
+			return result;
+		}
+
 		public virtual RectangleF ToRectangleF()
 		{
 			xRange.InferLowAndLength();

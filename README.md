@@ -1,7 +1,7 @@
 Rectangle
 =========
 
-This is a helper class for handling rectangles comfortably.
+These are some helper classes and extension methods for handling rectangles comfortably.
 
 ### RectangleF
 
@@ -90,3 +90,217 @@ Because of the immutability, you can do the following:
 	RectangleF rect3 = rect.Right(60).ToRectangleF();
 
 rect3.Left then will be the original 10 as expected, not 50.
+
+### Modify rectangles
+
+If you want to modify a rectangle, let's say
+
+	var rect = new RectangleF(10, 20, 30, 40);
+
+you could create a new Rect, copy the things which should remain the same, and change the others:
+
+	Rect.CreateWith.TopOf(rect).RightOf(rect).HeightOf(rect).Width(100).ToRectangleF()
+
+But this is a bit lenghty and cumbersome. With the use of another helper class you can write
+
+	rect.With().SameTop().SameRight().SameHeight().Width(100).ToRectangleF()
+
+The With extension method on RectangleF saves the original rectangle and you can transfer the desired 
+specifications just by calling the Same... methods. 
+
+Following example relocates the top left corner of the rectangle:
+
+	rect.With().SameSize().Top(20).Left(30).ToRectangleF();
+
+### Even shorter
+
+	rect.With().SameTop().SameRight().SameHeight().Width(100).ToRectangleF()
+
+is still a bit lengthy, and can be written shorter as
+
+	rect.With().SameRight().Width(100).ToRectangleF()
+
+So, as an exception to the above rule that for every dimension exactly two specifications have to be provided, 
+you can provide *zero* specifcations for a dimension, i.e. omitting the dimension as a whole.
+It will be transferred to the new RectangleF as it was in the original RectangleF.
+
+Note that in the above example it would not be enough to only change the width:
+
+	rect.With().Width(100).ToRectangleF()
+	
+It's not specified which part of the horizontal range should remain the same: the left, the middle or the right.
+Hence, in this case an exception is thrown stating that the dimension is underspecified.
+
+Some more examples with just one dimension changed:
+
+	rect.With().SameWidth().Left(30).ToRectangleF()
+	rect.With().Right(10).Width(20).ToRectangleF()
+
+### Relative sizes
+
+For convenience, you can multiply the sizes of the original rectangle:
+
+	rect.With().SameCenter().RelativeHeight(.5f).RelativeWidth(.5f).ToRectangleF()
+	rect.With().SameCenter().RelativeSize(.5f).ToRectangleF()
+
+### Addition
+
+Or you can add some value to any of the original rectangle.
+
+This code moves the lop left corner while the bottom right corner remains fixed:
+
+	rect.With().SameRight().SameBottom().AddToLeft(10).AddToTop(20).ToRectangleF()
+
+All 3 alternatives fix the center while enlarging the rectangle:
+
+	rect.With().SameCenter().EnlargeHorizontally(20).EnlargeVertically(30).ToRectangleF();
+	rect.With().SameCenter().Enlarge(new SizeF(20, 30)).ToRectangleF();
+	rect.With().SameCenter().Enlarge(20, 30).ToRectangleF();
+
+This moves the rectangle:
+
+	rect.With().SameSize().AddToRight(20).AddToTop(30).ToRectangleF();
+
+### Move
+
+Because writing the above line just to move a rectange is still too much code (and choosing a corner for adding the offset is
+redundant), I have added extension methods for RectangleF directly, which are just for the task of moving it:
+
+	rect.Move(20, 30);
+	rect.MoveRight(20);
+	rect.MoveDown(30);
+
+### Corners and Centers
+
+Some more extension methods to RectangleF return the corners of the rectangle:
+
+	rect.TopLeft()
+	rect.BottomRight()
+
+They also can be used with the Rect methods:
+
+	Rect.CreateWith.TopLeft(rect.BottomRight()).Size(10, 20).ToRectangleF();
+
+Finally, there are two extension methods to return the center coordinates of a rectangle:
+
+	rect.CenterX()
+	rect.CenterY()
+	
+### Reference: Rect
+
+#### Get basic properties
+
+	float? GetLeft()
+	float? GetCenterX()
+	float? GetRight()
+	float? GetWidth()
+	
+	float? GetTop()
+	float? GetCenterY()
+	float? GetBottom()
+	float? GetHeight()
+
+#### Set basic properties
+
+	Left(float left)
+	CenterX(float centerX)
+	Right(float right)
+	Width(float width)
+
+	Top(float top)
+	CenterY(float centerY)
+	Bottom(float bottom)
+	Height(float height)
+
+### Use a RectangleF to set properties
+
+	ToLeftOf(RectangleF rect, float margin = 0)
+	ToRightOf(RectangleF rect, float margin = 0)
+	Above(RectangleF rect, float margin = 0)
+	Below(RectangleF rect, float margin = 0)
+
+	AtRightOf(RectangleF rect, float margin = 0)
+	AtLeftOf(RectangleF rect, float margin = 0)
+	AtTopOf(RectangleF rect, float margin = 0)
+	AtBottomOf(RectangleF rect, float margin = 0)
+
+	LeftOf(RectangleF rect)
+	CenterXOf(RectangleF rect)
+	RightOf(RectangleF rect)
+	WidthOf(RectangleF rect)
+	RelativeWidthOf(RectangleF rect, float fraction)
+
+	TopOf(RectangleF rect)
+	CenterYOf(RectangleF rect)
+	BottomOf(RectangleF rect)
+	HeightOf(RectangleF rect)
+	RelativeHeightOf(RectangleF rect, float fraction)
+
+	LeftRightOf(RectangleF rect, float margin = 0)
+	TopBottomOf(RectangleF rect, float margin = 0)
+	TopLeftOf(RectangleF rect)
+	CenterOf(RectangleF rect)
+	SizeOf(RectangleF rect)
+	RelativeSizeOf(RectangleF rect, float fraction)
+
+	LeftTopRightBottomOf(RectangleF rect)
+	LeftTopRightBottom(float left, float top, float right, float bottom)
+	
+	LeftTopWidthHeightOf(RectangleF rect)
+	LeftTopWidthHeight(float left, float top, float width, float height)
+
+#### Use a SizeF to set properties
+
+	Size(SizeF size)
+	RelativeSize(SizeF size, float fraction)
+	Size(float width, float height)
+
+#### Use a PointF to set properties
+
+	TopLeft(PointF point)
+	TopRight(PointF point)
+	TopCenter(PointF point)
+	CenterLeft(PointF point)
+	CenterRight(PointF point)
+	BottomLeft(PointF point)
+	BottomCenter(PointF point)
+	BottomRight(PointF point)
+
+### Reference: RectWithOriginal
+	
+#### Set basic properties
+
+	SameLeft()
+	SameCenterX()
+	SameRight()
+	SameWidth()
+
+	SameTop()
+	SameCenterY()
+	SameBottom()
+	SameHeight()
+
+	SameTopLeft()
+	SameCenter()
+	SameSize()
+
+#### Add
+
+	AddToLeft(float delta)
+	AddToCenterX(float delta)
+	AddToRight(float delta)
+	
+	AddToTop(float delta)
+	AddToCenterY(float delta)
+	AddToBottom(float delta)
+	
+	EnlargeHorizontally(float delta)
+	EnlargeVertically(float delta)
+	Enlarge(float widthDelta, float heightDelta)
+	Enlarge(SizeF sizeDelta)
+
+#### Multiply
+
+	RelativeWidth(float fraction)
+	RelativeHeight(float fraction)
+	RelativeSize(float fraction)

@@ -95,17 +95,17 @@ namespace Rectangle
 
 		// ModifiedRect
 
-		public static ModifiedRect With(this RectangleF rectangle)
+		public static RectWithOriginal With(this RectangleF rectangle)
 		{
-			return new ModifiedRect(rectangle);
+			return new RectWithOriginal(rectangle);
 		}
 
-		public static ModifiedRect WithSameSize(this RectangleF rectangle)
+		public static RectWithOriginal WithSameSize(this RectangleF rectangle)
 		{
 			return rectangle.With().SameSize();
 		}
 
-		public static ModifiedRect WithSameTopLeft(this RectangleF rectangle)
+		public static RectWithOriginal WithSameTopLeft(this RectangleF rectangle)
 		{
 			return rectangle.With().SameTop().SameLeft();
 		}
