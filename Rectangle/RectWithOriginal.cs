@@ -30,55 +30,48 @@ namespace Rectangle
 			return new RectWithOriginal(this);
 		}
 
-		RectWithOriginal Modify(Action<RectWithOriginal> modify)
-		{
-			RectWithOriginal newRect = (RectWithOriginal)Clone();
-			modify(newRect);
-			return newRect;
-		}
-
 		// Horizontal dimension, basic properties
 
 		public RectWithOriginal SameLeft()
 		{
-			return Modify(rect => rect.Left(original.Left));
+			return (RectWithOriginal)Left(original.Left);
 		}
 
 		public RectWithOriginal SameCenterX()
 		{
-			return Modify(rect => rect.CenterX(original.CenterX()));
+			return (RectWithOriginal)CenterX(original.CenterX());
 		}
 
 		public RectWithOriginal SameRight()
 		{
-			return Modify(rect => rect.Right(original.Right));
+			return (RectWithOriginal)Right(original.Right);
 		}
 
 		public RectWithOriginal SameWidth()
 		{
-			return Modify(rect => rect.Width(original.Width));
+			return (RectWithOriginal)Width(original.Width);
 		}
 
 		// Vertical dimension, basic properties
 
 		public RectWithOriginal SameTop()
 		{
-			return Modify(rect => rect.Top(original.Top));
+			return (RectWithOriginal)Top(original.Top);
 		}
 
 		public RectWithOriginal SameCenterY()
 		{
-			return Modify(rect => rect.CenterY(original.CenterY()));
+			return (RectWithOriginal)CenterY(original.CenterY());
 		}
 
 		public RectWithOriginal SameBottom()
 		{
-			return Modify(rect => rect.Bottom(original.Bottom));
+			return (RectWithOriginal)Bottom(original.Bottom);
 		}
 
 		public RectWithOriginal SameHeight()
 		{
-			return Modify(rect => rect.Height(original.Height));
+			return (RectWithOriginal)Height(original.Height);
 		}
 
 		// Both dimensions, basic properties
@@ -102,44 +95,44 @@ namespace Rectangle
 
 		public RectWithOriginal AddToLeft(float delta)
 		{
-			return Modify(rect => rect.Left(original.Left + delta));
+			return (RectWithOriginal)Left(original.Left + delta);
 		}
 
 		public RectWithOriginal AddToCenterX(float delta)
 		{
-			return Modify(rect => rect.CenterX(original.CenterX() + delta));
+			return (RectWithOriginal)CenterX(original.CenterX() + delta);
 		}
 
 		public RectWithOriginal AddToRight(float delta)
 		{
-			return Modify(rect => rect.Right(original.Right + delta));
+			return (RectWithOriginal)Right(original.Right + delta);
 		}
 
 		public RectWithOriginal EnlargeHorizontally(float delta)
 		{
-			return Modify(rect => rect.Width(original.Width + delta));
+			return (RectWithOriginal)Width(original.Width + delta);
 		}
 
 		// Vertical dimension, adding methods
 
 		public RectWithOriginal AddToTop(float delta)
 		{
-			return Modify(rect => rect.Top(original.Top + delta));
+			return (RectWithOriginal)Top(original.Top + delta);
 		}
 
 		public RectWithOriginal AddToCenterY(float delta)
 		{
-			return Modify(rect => rect.CenterY(original.CenterY() + delta));
+			return (RectWithOriginal)CenterY(original.CenterY() + delta);
 		}
 
 		public RectWithOriginal AddToBottom(float delta)
 		{
-			return Modify(rect => rect.Bottom(original.Bottom + delta));
+			return (RectWithOriginal)Bottom(original.Bottom + delta);
 		}
 
 		public RectWithOriginal EnlargeVertically(float delta)
 		{
-			return Modify(rect => rect.Height(original.Height + delta));
+			return (RectWithOriginal)Height(original.Height + delta);
 		}
 
 		// Both dimensions, adding methods

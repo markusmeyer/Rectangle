@@ -4,13 +4,13 @@ namespace Rectangle
 {
 	public partial class Rect
 	{
-		protected enum Dimension
+		public enum Dimension
 		{ 
 			Horizontal, 
 			Vertical
 		};
 
-		protected struct Range
+		public struct Range
 		{
 			readonly Dimension dimension;
 			public float? Low;

@@ -212,7 +212,7 @@ Finally, there are two extension methods to return the center coordinates of a r
 	Bottom(float bottom)
 	Height(float height)
 
-### Use a RectangleF to set properties
+#### Use a RectangleF to set properties
 
 	ToLeftOf(RectangleF rect, float margin = 0)
 	ToRightOf(RectangleF rect, float margin = 0)

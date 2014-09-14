@@ -93,7 +93,7 @@ namespace Rectangle
 				rectangle.Height);
 		}
 
-		// ModifiedRect
+		// RectWithOriginal
 
 		public static RectWithOriginal With(this RectangleF rectangle)
 		{
