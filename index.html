@@ -28,37 +28,400 @@
         </ul>
       </header>
       <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h1>
+<a name="rectangle" class="anchor" href="#rectangle"><span class="octicon octicon-link"></span></a>Rectangle</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>These are some helper classes and extension methods for handling rectangles comfortably.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h3>
+<a name="rectanglef" class="anchor" href="#rectanglef"><span class="octicon octicon-link"></span></a>RectangleF</h3>
+
+<p>RectangleF provides only two methods to specify a rectangle: </p>
+
+<p>By constructor: </p>
+
+<pre><code>new RectangleF(10, 20, 30, 40)
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>which takes top and left coordinates and width and height.</p>
+
+<p>By static method: </p>
+
+<pre><code>RectangleF.FromLTRB(10, 20, 30, 40)
+</code></pre>
+
+<p>which takes left, top, right and bottom coordinates.</p>
+
+<p>But often you want to specify the horizontal dimension differently from the vertical one, or specify the center and width / height, or the width and right coordinate, for example.
+To avoid the cumbersome task of calculating the required parameters from the given ones each time, I created the Rect helper class.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="rect" class="anchor" href="#rect"><span class="octicon octicon-link"></span></a>Rect</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>With the Rect class you can specify a rectangle in a very flexible way:</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p>For each dimension, two out of four possible specifications are made. For the horizontal dimension, this can be left, center, right and width. For the vertical dimension it can be top, center, bottom and height.</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>In the following example, we specify bottom coordinate, height, horizontal center coordinate and the width:</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<pre><code>Rect.CreateWith.Bottom(40).Height(10).CenterX(20).Width(30).ToRectangleF()
+</code></pre>
 
 <h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a name="too-much-too-little" class="anchor" href="#too-much-too-little"><span class="octicon octicon-link"></span></a>Too much, too little?</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>If you there is just one or none specification per dimension, the range for a dimension is not defined. If you specify more than two things, they could contradict each other. In both cases, you will get an exception when you try to convert to RectangleF, but whether the right count of specifications has been provided can easily be seen from the source code.</p>
+
+<p>Following example will fail to execute, because the horizontal dimension is overspecified (left and right coordinate and width is given) and the vertical dimension is underspecified (only top coordinate is given):</p>
+
+<pre><code>Rect.CreateWith.Left(10).Right(20).Width(30).Top(40).ToRectangleF()
+</code></pre>
+
+<p>Specifying the same thing twice is no problem, however:</p>
+
+<pre><code>Rect.CreateWith.Left(10).Right(20).Top(30).Bottom(40).Left(20).ToRectangleF()
+</code></pre>
+
+<h3>
+<a name="more-flexible-ways" class="anchor" href="#more-flexible-ways"><span class="octicon octicon-link"></span></a>More flexible ways</h3>
+
+<p>As an alternative to providing direct coordinates or lengths, you can exctract them from other rectangles, points or sizes.</p>
+
+<pre><code>RectangleF rect1 = new RectangleF(10, 20, 30, 40);
+PointF point = new PointF(50, 60);
+SizeF size = new SizeF(70,80);
+
+RectangleF rect2 = 
+    Rect.CreateWith
+    .TopLeft(point)
+    .RightOf(rect1)
+    .RelativeHeightOf(rect1, 2)
+    .ToRectangleF();
+
+RectangleF rect3 = 
+    Rect.CreateWith
+    .Size(size)
+    .AtRightOf(rect1)
+    .AtBottomOf(rect1)
+    .ToRectangleF();
+</code></pre>
+
+<h3>
+<a name="more-features" class="anchor" href="#more-features"><span class="octicon octicon-link"></span></a>More features</h3>
+
+<p>If you want to query again what you just set, you can do that as follows:</p>
+
+<pre><code>Rect rect = Rect.CreateWith.Left(20);
+float left = rect.GetLeft().Value;
+</code></pre>
+
+<p>If you want to use the same partial specifications to create two different rectangles, you can do this as follows:</p>
+
+<pre><code>Rect rect = Rect.CreateWith.Left(10).Right(20).Top(30);
+RectangleF rect1 = rect.Bottom(40).ToRectangleF();
+RectangleF rect2 = rect.Bottom(50).ToRectangleF();
+</code></pre>
+
+<h3>
+<a name="pointer-semantics-but-immutable" class="anchor" href="#pointer-semantics-but-immutable"><span class="octicon octicon-link"></span></a>Pointer semantics, but immutable</h3>
+
+<p>RectangleF is a struct and thus has value semantics. Rect is a class and has pointer semantics. In order to be able to use a partial specification for different rectangles, the class is immutable and creates another instance for each modification operation.</p>
+
+<p>Because of the immutability, you can do the following:</p>
+
+<pre><code>Rect rect = Rect.CreateWith.Left(10).Right(20).Top(30).Bottom(40);
+RectangleF rect2 = rect.Left(50).ToRectangleF();
+RectangleF rect3 = rect.Right(60).ToRectangleF();
+</code></pre>
+
+<p>rect3.Left then will be the original 10 as expected, not 50.</p>
+
+<h3>
+<a name="modify-rectangles" class="anchor" href="#modify-rectangles"><span class="octicon octicon-link"></span></a>Modify rectangles</h3>
+
+<p>If you want to modify a rectangle, let's say</p>
+
+<pre><code>var rect = new RectangleF(10, 20, 30, 40);
+</code></pre>
+
+<p>you could create a new Rect, copy the things which should remain the same, and change the others:</p>
+
+<pre><code>Rect.CreateWith.TopOf(rect).RightOf(rect).HeightOf(rect).Width(100).ToRectangleF()
+</code></pre>
+
+<p>But this is a bit lenghty and cumbersome. With the use of another helper class you can write</p>
+
+<pre><code>rect.With().SameTop().SameRight().SameHeight().Width(100).ToRectangleF()
+</code></pre>
+
+<p>The With extension method on RectangleF saves the original rectangle and you can transfer the desired 
+specifications just by calling the Same... methods. </p>
+
+<p>Following example relocates the top left corner of the rectangle:</p>
+
+<pre><code>rect.With().SameSize().Top(20).Left(30).ToRectangleF();
+</code></pre>
+
+<h3>
+<a name="even-shorter" class="anchor" href="#even-shorter"><span class="octicon octicon-link"></span></a>Even shorter</h3>
+
+<pre><code>rect.With().SameTop().SameRight().SameHeight().Width(100).ToRectangleF()
+</code></pre>
+
+<p>is still a bit lengthy, and can be written shorter as</p>
+
+<pre><code>rect.With().SameRight().Width(100).ToRectangleF()
+</code></pre>
+
+<p>So, as an exception to the above rule that for every dimension exactly two specifications have to be provided, 
+you can provide <em>zero</em> specifcations for a dimension, i.e. omitting the dimension as a whole.
+It will be transferred to the new RectangleF as it was in the original RectangleF.</p>
+
+<p>Note that in the above example it would not be enough to only change the width:</p>
+
+<pre><code>rect.With().Width(100).ToRectangleF()
+</code></pre>
+
+<p>It's not specified which part of the horizontal range should remain the same: the left, the middle or the right.
+Hence, in this case an exception is thrown stating that the dimension is underspecified.</p>
+
+<p>Some more examples with just one dimension changed:</p>
+
+<pre><code>rect.With().SameWidth().Left(30).ToRectangleF()
+rect.With().Right(10).Width(20).ToRectangleF()
+</code></pre>
+
+<h3>
+<a name="relative-sizes" class="anchor" href="#relative-sizes"><span class="octicon octicon-link"></span></a>Relative sizes</h3>
+
+<p>For convenience, you can multiply the sizes of the original rectangle:</p>
+
+<pre><code>rect.With().SameCenter().RelativeHeight(.5f).RelativeWidth(.5f).ToRectangleF()
+rect.With().SameCenter().RelativeSize(.5f).ToRectangleF()
+</code></pre>
+
+<h3>
+<a name="moving-and-enlarging" class="anchor" href="#moving-and-enlarging"><span class="octicon octicon-link"></span></a>Moving and enlarging</h3>
+
+<p>Or you can move any side of the rectangle or enlarge / shrink its width and height.</p>
+
+<p>This code moves the lop left corner while the bottom right corner remains fixed:</p>
+
+<pre><code>rect.With().SameRight().SameBottom().LeftMovedBy(10).TopMovedBy(20).ToRectangleF();
+</code></pre>
+
+<p>All 3 alternatives fix the center while enlarging the rectangle:</p>
+
+<pre><code>rect.With().SameCenter().WidthEnlargedBy(20).HeightEnlargedBy(30).ToRectangleF();
+rect.With().SameCenter().EnlargedBy(new SizeF(20, 30)).ToRectangleF();
+rect.With().SameCenter().EnlargedBy(20, 30).ToRectangleF();
+</code></pre>
+
+<p>This moves the rectangle:</p>
+
+<pre><code>rect.With().SameSize().LeftMovedBy(20).TopMovedBy(30).ToRectangleF();
+</code></pre>
+
+<p>Shorter:</p>
+
+<pre><code>rect.With().LeftTopMovedBy(20, 30).ToRectangleF();
+</code></pre>
+
+<p>Because writing the above line just to move a rectange is still too much code (and choosing a corner for adding the offset is
+redundant here), I have added extension methods for RectangleF directly, which are just for the task of moving it:</p>
+
+<pre><code>var r1 = rect.MovedBy(20, 30);
+var r2 = rect.MovedRightBy(20);
+var r3 = rect.MovedDownBy(30);
+</code></pre>
+
+<p>Of course, you can also use RectangleF.Offset(PointF), but this method modifies the original RectangleF and doesn't return 
+the new one, so you can't use it in a functional style. 
+I named the methods moved, not move, to indicate that they don't change the original Rect / RectangleF.</p>
+
+<h3>
+<a name="corners-and-centers" class="anchor" href="#corners-and-centers"><span class="octicon octicon-link"></span></a>Corners and Centers</h3>
+
+<p>Some more extension methods to RectangleF return the corners of the rectangle:</p>
+
+<pre><code>rect.TopLeft()
+rect.BottomRight()
+</code></pre>
+
+<p>They also can be used with the Rect methods:</p>
+
+<pre><code>Rect.CreateWith.TopLeft(rect.BottomRight()).Size(10, 20).ToRectangleF();
+</code></pre>
+
+<p>Finally, there are two extension methods to return the center coordinates of a rectangle:</p>
+
+<pre><code>rect.CenterX()
+rect.CenterY()
+</code></pre>
+
+<h3>
+<a name="reference-rect" class="anchor" href="#reference-rect"><span class="octicon octicon-link"></span></a>Reference: Rect</h3>
+
+<h4>
+<a name="get-basic-properties" class="anchor" href="#get-basic-properties"><span class="octicon octicon-link"></span></a>Get basic properties</h4>
+
+<pre><code>float? GetLeft()
+float? GetCenterX()
+float? GetRight()
+float? GetWidth()
+
+float? GetTop()
+float? GetCenterY()
+float? GetBottom()
+float? GetHeight()
+</code></pre>
+
+<h4>
+<a name="set-basic-properties" class="anchor" href="#set-basic-properties"><span class="octicon octicon-link"></span></a>Set basic properties</h4>
+
+<pre><code>Left(float left)
+CenterX(float centerX)
+Right(float right)
+Width(float width)
+
+Top(float top)
+CenterY(float centerY)
+Bottom(float bottom)
+Height(float height)
+</code></pre>
+
+<h4>
+<a name="use-a-rectanglef-to-set-properties" class="anchor" href="#use-a-rectanglef-to-set-properties"><span class="octicon octicon-link"></span></a>Use a RectangleF to set properties</h4>
+
+<pre><code>ToLeftOf(RectangleF rect, float margin = 0)
+ToRightOf(RectangleF rect, float margin = 0)
+Above(RectangleF rect, float margin = 0)
+Below(RectangleF rect, float margin = 0)
+
+AtRightOf(RectangleF rect, float margin = 0)
+AtLeftOf(RectangleF rect, float margin = 0)
+AtTopOf(RectangleF rect, float margin = 0)
+AtBottomOf(RectangleF rect, float margin = 0)
+
+LeftOf(RectangleF rect)
+CenterXOf(RectangleF rect)
+RightOf(RectangleF rect)
+WidthOf(RectangleF rect)
+RelativeWidthOf(RectangleF rect, float fraction)
+
+TopOf(RectangleF rect)
+CenterYOf(RectangleF rect)
+BottomOf(RectangleF rect)
+HeightOf(RectangleF rect)
+RelativeHeightOf(RectangleF rect, float fraction)
+
+LeftRightOf(RectangleF rect, float margin = 0)
+TopBottomOf(RectangleF rect, float margin = 0)
+TopLeftOf(RectangleF rect)
+CenterOf(RectangleF rect)
+SizeOf(RectangleF rect)
+RelativeSizeOf(RectangleF rect, float fraction)
+
+LeftTopRightBottomOf(RectangleF rect)
+LeftTopRightBottom(float left, float top, float right, float bottom)
+
+LeftTopWidthHeightOf(RectangleF rect)
+LeftTopWidthHeight(float left, float top, float width, float height)
+</code></pre>
+
+<h4>
+<a name="use-a-sizef-to-set-properties" class="anchor" href="#use-a-sizef-to-set-properties"><span class="octicon octicon-link"></span></a>Use a SizeF to set properties</h4>
+
+<pre><code>Size(SizeF size)
+RelativeSize(SizeF size, float fraction)
+Size(float width, float height)
+</code></pre>
+
+<h4>
+<a name="use-a-pointf-to-set-properties" class="anchor" href="#use-a-pointf-to-set-properties"><span class="octicon octicon-link"></span></a>Use a PointF to set properties</h4>
+
+<pre><code>TopLeft(PointF point)
+TopRight(PointF point)
+TopCenter(PointF point)
+CenterLeft(PointF point)
+CenterRight(PointF point)
+BottomLeft(PointF point)
+BottomCenter(PointF point)
+BottomRight(PointF point)
+</code></pre>
+
+<h3>
+<a name="reference-rectwithoriginal" class="anchor" href="#reference-rectwithoriginal"><span class="octicon octicon-link"></span></a>Reference: RectWithOriginal</h3>
+
+<h4>
+<a name="transfer-basic-properties" class="anchor" href="#transfer-basic-properties"><span class="octicon octicon-link"></span></a>Transfer basic properties</h4>
+
+<pre><code>SameLeft()
+SameCenterX()
+SameRight()
+SameWidth()
+
+SameTop()
+SameCenterY()
+SameBottom()
+SameHeight()
+
+SameTopLeft()
+SameCenter()
+SameSize()
+</code></pre>
+
+<h4>
+<a name="move--enlarge" class="anchor" href="#move--enlarge"><span class="octicon octicon-link"></span></a>Move / Enlarge</h4>
+
+<pre><code>LeftMovedBy(float delta)
+CenterXMovedBy(float delta)
+RightMovedBy(float delta)
+
+TopMovedBy(float delta)
+CenterYMovedBy(float delta)
+BottomMovedBy(float delta)
+
+LeftTopMovedBy(float leftDelta, float topDelta)
+
+WidthEnlargedBy(float delta)
+HeightEnlargedBy(float delta)
+EnlargedBy(float widthDelta, float heightDelta)
+EnlargedBy(SizeF sizeDelta)
+</code></pre>
+
+<h4>
+<a name="multiply" class="anchor" href="#multiply"><span class="octicon octicon-link"></span></a>Multiply</h4>
+
+<pre><code>RelativeWidth(float fraction)
+RelativeHeight(float fraction)
+RelativeSize(float fraction)
+</code></pre>
+
+<h3>
+<a name="reference-rectanglef-extensions" class="anchor" href="#reference-rectanglef-extensions"><span class="octicon octicon-link"></span></a>Reference: RectangleF Extensions</h3>
+
+<pre><code>float CenterX()
+float CenterY()
+
+PointF TopLeft()
+PointF TopCenter()
+PointF TopRight()
+PointF CenterLeft()
+PointF Center()
+PointF CenterRight()
+PointF BottomLeft()
+PointF BottomCenter()
+PointF BottomRight()
+
+RectangleF MovedBy(float deltaX, float deltaY)
+RectangleF MovedRightBy(float delta)
+RectangleF MovedDownBy(float delta)
+
+RectWithOriginal With()
+RectWithOriginal WithSameSize()
+RectWithOriginal WithSameTopLeft()
+</code></pre>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/markusmeyer">markusmeyer</a></p>
