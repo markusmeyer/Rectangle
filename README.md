@@ -312,3 +312,26 @@ Finally, there are two extension methods to return the center coordinates of a r
 	RelativeWidth(float fraction)
 	RelativeHeight(float fraction)
 	RelativeSize(float fraction)
+	
+### Reference: RectangleF Extensions
+
+	float CenterX()
+	float CenterY()
+
+	PointF TopLeft()
+	PointF TopCenter()
+	PointF TopRight()
+	PointF CenterLeft()
+	PointF Center()
+	PointF CenterRight()
+	PointF BottomLeft()
+	PointF BottomCenter()
+	PointF BottomRight()
+
+	RectangleF MovedBy(float deltaX, float deltaY)
+	RectangleF MovedRightBy(float delta)
+	RectangleF MovedDownBy(float delta)
+
+	RectWithOriginal With()
+	RectWithOriginal WithSameSize()
+	RectWithOriginal WithSameTopLeft()
