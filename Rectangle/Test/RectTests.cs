@@ -111,5 +111,17 @@ namespace Rectangle
 				new RectangleF(30, 20, 40, 80),
 				Rect.CreateWith.CenterX(50).Width(40).CenterY(60).Height(80).ToRectangleF());
 		}
+
+		[Test]
+		public void Apply()
+		{
+			var rect =
+				Rect.CreateWith.Left(1).Right(2).Top(3).Bottom(4).Apply(
+					Rect.CreateWith.Left(5).Top(6));
+			Assert.AreEqual(5, rect.GetLeft());
+			Assert.AreEqual(2, rect.GetRight());
+			Assert.AreEqual(6, rect.GetTop());
+			Assert.AreEqual(4, rect.GetBottom());
+		}
 	}
 }
