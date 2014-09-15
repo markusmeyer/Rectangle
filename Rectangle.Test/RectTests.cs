@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using NUnit.Framework;
 
-namespace Rectangle
+namespace Rectangle.Test
 {
 	[TestFixture]
 	public class RectTests

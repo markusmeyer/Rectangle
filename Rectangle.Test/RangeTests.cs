@@ -1,9 +1,10 @@
 using System;
 using NUnit.Framework;
 
-namespace Rectangle
+namespace Rectangle.Test
 {
-	class RangeTests
+	[TestFixture]
+	public class RangeTests
 	{
 		[Test]
 		[ExpectedException(typeof(InvalidOperationException))]
