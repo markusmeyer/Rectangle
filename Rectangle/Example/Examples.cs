@@ -71,16 +71,17 @@ namespace Rectangle
 			rect.With().SameCenter().RelativeSize(.5f).ToRectangleF();
 
 			// add / enlarge
-			rect.With().SameRight().SameBottom().AddToLeft(10).AddToTop(20).ToRectangleF();
-			rect.With().SameCenter().EnlargeHorizontally(20).EnlargeVertically(30).ToRectangleF();
-			rect.With().SameCenter().Enlarge(new SizeF(20, 30)).ToRectangleF();
-			rect.With().SameCenter().Enlarge(20, 30).ToRectangleF();
+			rect.With().SameRight().SameBottom().LeftMovedBy(10).TopMovedBy(20).ToRectangleF();
+			rect.With().SameCenter().WidthEnlargedBy(20).HeightEnlargedBy(30).ToRectangleF();
+			rect.With().SameCenter().EnlargedBy(new SizeF(20, 30)).ToRectangleF();
+			rect.With().SameCenter().EnlargedBy(20, 30).ToRectangleF();
 
 			// move
-			rect.With().SameSize().AddToLeft(20).AddToTop(30).ToRectangleF();
-			rect.Move(20, 30);
-			rect.MoveRight(20);
-			rect.MoveDown(30);
+			rect.With().SameSize().LeftMovedBy(20).TopMovedBy(30).ToRectangleF();
+			rect.With().LeftTopMovedBy(20, 30).ToRectangleF();
+			var r1 = rect.MovedBy(20, 30);
+			var r2 = rect.MovedRightBy(20);
+			var r3 = rect.MovedDownBy(30);
 
 			// corners
 			Rect.CreateWith.TopLeft(rect.BottomRight()).Size(10, 20).ToRectangleF();

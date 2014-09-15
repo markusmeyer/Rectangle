@@ -91,60 +91,65 @@ namespace Rectangle
 			return SameWidth().SameHeight();
 		}
 
-		// Horizontal dimension, adding methods
+		// Horizontal dimension, moving/enlarging methods
 
-		public RectWithOriginal AddToLeft(float delta)
+		public RectWithOriginal LeftMovedBy(float delta)
 		{
 			return (RectWithOriginal)Left(original.Left + delta);
 		}
 
-		public RectWithOriginal AddToCenterX(float delta)
+		public RectWithOriginal CenterXMovedBy(float delta)
 		{
 			return (RectWithOriginal)CenterX(original.CenterX() + delta);
 		}
 
-		public RectWithOriginal AddToRight(float delta)
+		public RectWithOriginal RightMovedBy(float delta)
 		{
 			return (RectWithOriginal)Right(original.Right + delta);
 		}
 
-		public RectWithOriginal EnlargeHorizontally(float delta)
+		public RectWithOriginal WidthEnlargedBy(float delta)
 		{
 			return (RectWithOriginal)Width(original.Width + delta);
 		}
 
-		// Vertical dimension, adding methods
+		// Vertical dimension, moving/enlarging methods
 
-		public RectWithOriginal AddToTop(float delta)
+		public RectWithOriginal TopMovedBy(float delta)
 		{
 			return (RectWithOriginal)Top(original.Top + delta);
 		}
 
-		public RectWithOriginal AddToCenterY(float delta)
+		public RectWithOriginal CenterYMovedBy(float delta)
 		{
 			return (RectWithOriginal)CenterY(original.CenterY() + delta);
 		}
 
-		public RectWithOriginal AddToBottom(float delta)
+		public RectWithOriginal BottomMovedBy(float delta)
 		{
 			return (RectWithOriginal)Bottom(original.Bottom + delta);
 		}
 
-		public RectWithOriginal EnlargeVertically(float delta)
+		public RectWithOriginal HeightEnlargedBy(float delta)
 		{
 			return (RectWithOriginal)Height(original.Height + delta);
 		}
 
-		// Both dimensions, adding methods
+		// Both dimensions, moving/enlarging methods
 
-		public RectWithOriginal Enlarge(float widthDelta, float heightDelta)
+		public RectWithOriginal LeftTopMovedBy(float leftDelta, float topDelta)
 		{
-			return EnlargeHorizontally(widthDelta).EnlargeVertically(heightDelta);
+			return SameSize().LeftMovedBy(leftDelta).TopMovedBy(topDelta);
 		}
 
-		public RectWithOriginal Enlarge(SizeF sizeDelta)
+		public RectWithOriginal EnlargedBy(float widthDelta, float heightDelta)
 		{
-			return EnlargeHorizontally(sizeDelta.Width).EnlargeVertically(sizeDelta.Height);
+			return WidthEnlargedBy(widthDelta).HeightEnlargedBy(heightDelta);
+		}
+
+		public RectWithOriginal EnlargedBy(SizeF sizeDelta)
+		{
+			return WidthEnlargedBy(sizeDelta.Width).HeightEnlargedBy(sizeDelta.Height);
 		}
 
 		// Multiplying methods

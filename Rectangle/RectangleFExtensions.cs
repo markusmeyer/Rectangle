@@ -66,7 +66,7 @@ namespace Rectangle
 
 		// Move
 
-		public static RectangleF Move(this RectangleF rectangle, float deltaX, float deltaY)
+		public static RectangleF MovedBy(this RectangleF rectangle, float deltaX, float deltaY)
 		{
 			return new RectangleF(
 				rectangle.Left + deltaX,
@@ -75,7 +75,7 @@ namespace Rectangle
 				rectangle.Height);
 		}
 
-		public static RectangleF MoveRight(this RectangleF rectangle, float delta)
+		public static RectangleF MovedRightBy(this RectangleF rectangle, float delta)
 		{
 			return new RectangleF(
 				rectangle.Left + delta,
@@ -84,7 +84,7 @@ namespace Rectangle
 				rectangle.Height);
 		}
 
-		public static RectangleF MoveDown(this RectangleF rectangle, float delta)
+		public static RectangleF MovedDownBy(this RectangleF rectangle, float delta)
 		{
 			return new RectangleF(
 				rectangle.Left,

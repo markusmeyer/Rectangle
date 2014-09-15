@@ -143,32 +143,38 @@ For convenience, you can multiply the sizes of the original rectangle:
 	rect.With().SameCenter().RelativeHeight(.5f).RelativeWidth(.5f).ToRectangleF()
 	rect.With().SameCenter().RelativeSize(.5f).ToRectangleF()
 
-### Addition
+### Moving and enlarging
 
-Or you can add some value to any of the original rectangle.
+Or you can move any side of the rectangle or enlarge / shrink its width and height.
 
 This code moves the lop left corner while the bottom right corner remains fixed:
 
-	rect.With().SameRight().SameBottom().AddToLeft(10).AddToTop(20).ToRectangleF()
+	rect.With().SameRight().SameBottom().LeftMovedBy(10).TopMovedBy(20).ToRectangleF();
 
 All 3 alternatives fix the center while enlarging the rectangle:
 
-	rect.With().SameCenter().EnlargeHorizontally(20).EnlargeVertically(30).ToRectangleF();
-	rect.With().SameCenter().Enlarge(new SizeF(20, 30)).ToRectangleF();
-	rect.With().SameCenter().Enlarge(20, 30).ToRectangleF();
+	rect.With().SameCenter().WidthEnlargedBy(20).HeightEnlargedBy(30).ToRectangleF();
+	rect.With().SameCenter().EnlargedBy(new SizeF(20, 30)).ToRectangleF();
+	rect.With().SameCenter().EnlargedBy(20, 30).ToRectangleF();
 
 This moves the rectangle:
 
-	rect.With().SameSize().AddToRight(20).AddToTop(30).ToRectangleF();
+	rect.With().SameSize().LeftMovedBy(20).TopMovedBy(30).ToRectangleF();
 
-### Move
+Shorter:
+
+	rect.With().LeftTopMovedBy(20, 30).ToRectangleF();
 
 Because writing the above line just to move a rectange is still too much code (and choosing a corner for adding the offset is
-redundant), I have added extension methods for RectangleF directly, which are just for the task of moving it:
+redundant here), I have added extension methods for RectangleF directly, which are just for the task of moving it:
 
-	rect.Move(20, 30);
-	rect.MoveRight(20);
-	rect.MoveDown(30);
+	var r1 = rect.MovedBy(20, 30);
+	var r2 = rect.MovedRightBy(20);
+	var r3 = rect.MovedDownBy(30);
+	
+Of course, you can also use RectangleF.Offset(PointF), but this method modifies the original RectangleF and doesn't return 
+the new one, so you can't use it in a functional style. 
+I named the methods moved, not move, to indicate that they don't change the original Rect / RectangleF.
 
 ### Corners and Centers
 
@@ -268,7 +274,7 @@ Finally, there are two extension methods to return the center coordinates of a r
 
 ### Reference: RectWithOriginal
 	
-#### Set basic properties
+#### Transfer basic properties
 
 	SameLeft()
 	SameCenterX()
@@ -284,20 +290,22 @@ Finally, there are two extension methods to return the center coordinates of a r
 	SameCenter()
 	SameSize()
 
-#### Add
+#### Move / Enlarge
 
-	AddToLeft(float delta)
-	AddToCenterX(float delta)
-	AddToRight(float delta)
-	
-	AddToTop(float delta)
-	AddToCenterY(float delta)
-	AddToBottom(float delta)
-	
-	EnlargeHorizontally(float delta)
-	EnlargeVertically(float delta)
-	Enlarge(float widthDelta, float heightDelta)
-	Enlarge(SizeF sizeDelta)
+	LeftMovedBy(float delta)
+	CenterXMovedBy(float delta)
+	RightMovedBy(float delta)
+
+	TopMovedBy(float delta)
+	CenterYMovedBy(float delta)
+	BottomMovedBy(float delta)
+
+	LeftTopMovedBy(float leftDelta, float topDelta)
+
+	WidthEnlargedBy(float delta)
+	HeightEnlargedBy(float delta)
+	EnlargedBy(float widthDelta, float heightDelta)
+	EnlargedBy(SizeF sizeDelta)
 
 #### Multiply
 
